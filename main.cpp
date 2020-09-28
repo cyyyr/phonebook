@@ -7,7 +7,7 @@
 #include <fstream>
 #include <iomanip>
 #include <set>
-#include <map>
+#include <unordered_map>
 #include <sstream>
 
 
@@ -47,7 +47,6 @@ public:
 		return work_number;
 	}
 
-private:
 	string name;
 	string surname;
 	string main_number; //999 000 00 00 
@@ -60,7 +59,7 @@ class Base
 public:
 	void AddContact(const int& id, const Profile& profile)
 	{
-		data[id].insert(profile);
+		data[id] = profile;
 	}
 
 	void List() const
@@ -104,7 +103,7 @@ public:
 
 	}
 private:
-	unsorted_map<int, Profile> data;
+	unordered_map<int, Profile> data;
 };
 
 
@@ -128,17 +127,17 @@ int main()
 			Profile profile;
 
 			cout << "Contact's name . . . " << endl;
-			cin_ >> profile.name;
+			cin >> profile.name;
 			cout << "Contact's surname . . . " << endl;
-			cin_ >> profile.surname;
+			cin >> profile.surname;
 			cout << "Contact's mobile number . . . " << endl;
-			cin_ >> profile.main_number;
+			cin >> profile.main_number;
 			cout << "Contact's home number . . . " << endl;
-			cin_ >> profile.home_number;
+			cin >> profile.home_number;
 			cout << "Contact's work_number . . . " << endl;
-			cin_ >> profile.work_number;
+			cin >> profile.work_number;
 
-			base.AddEvent(id, profile);
+			base.AddContact(id, profile);
 		}
 		else if (command == "delete")
 		{
@@ -146,7 +145,7 @@ int main()
 
 			cin_ >> id;
 
-			if (base.DeleteEvent(id))
+			if (base.DeleteContact(id))
 				cout << "Deleted successfully" << endl;
 			else
 				cout << "Event not found" << endl;
@@ -163,10 +162,10 @@ int main()
 
 			cin_ >> id;
 
-			if (base.DeleteEvent(id))
+			if (base.DeleteContact(id))
 				cout << "Deleted successfully" << endl;
 			else
-				cout << "Event not found" << endl
+				cout << "Event not found" << endl;
 		}
 		else if (!command.empty())
 		{
